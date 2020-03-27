@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import NavBar from './components/NavBar';
+import AboutPage from './components/AboutPage';
+import DiscoverPage from './components/DiscoverPage';
+import SearchPage from './components/SearchPage';
 
 function App() {
+  const [ activePage, setActivePage ]= useState( 'AboutPage' );
+  function changePage( page ){
+    setActivePage( page );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavBar activePage={activePage} changePage={changePage} />
+      { activePage==='AboutPage'    ? <AboutPage />    : '' }
+      { activePage==='DiscoverPage' ? <DiscoverPage /> : '' }
+      { activePage==='SearchPage'   ? <SearchPage />   : '' }
     </div>
   );
 }
