@@ -22,6 +22,12 @@ function BreedSearchForm( props ){
         }
     }
 
+    function setFormValue( newInput ){
+        setSearchInput( newInput );
+        // clear the list
+        setShowList( [] );
+    }
+
     async function loadBreedList(){
         const breedListResult = await fetch( 'https://dog.ceo/api/breeds/list' ).then( result=>result.json() )
         setBreedList( breedListResult.message );
@@ -33,13 +39,13 @@ function BreedSearchForm( props ){
         <div class="input-group">
             <input onChange={handleInputChange} value={searchInput} type="text" class="form-control" placeholder="Search your breed"/>
             <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="button">Search</button>
+                <button onClick={function(){ props.setResultBreed(searchInput) }} class="btn btn-outline-primary" type="button">Search</button>
             </div>
         </div>
 
         <div class="mb-3">
             <ul class="col-6 list-group">
-                { showList.map( breed =><li class="list-group-item">{breed}</li> )}
+                { showList.map( breed =><li class="list-group-item" onClick={()=>setFormValue(breed)}>{breed}</li> )}
             </ul>
         </div>
     </form>        
